@@ -1,0 +1,874 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Wanderlust Travels - Your Journey Awaits</title>
+    
+    <!-- Font Awesome Icons from jsDelivr CDN -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/font-awesome@6.4.0/css/all.min.css">
+    
+    <!-- Custom CSS -->
+    <style>
+        :root {
+            --primary-color: #2c5aa0;
+            --secondary-color: #ff6b6b;
+            --accent-color: #ffd700;
+            --dark-color: #1a1a1a;
+            --light-color: #f8f9fa;
+            --text-color: #333;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: var(--text-color);
+            background-color: #fff;
+            overflow-x: hidden;
+        }
+
+        /* ==================== NAVIGATION BAR ==================== */
+        nav {
+            background: linear-gradient(135deg, var(--primary-color) 0%, #1a3a52 100%);
+            padding: 15px 0;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+        }
+
+        .nav-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .nav-logo {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-size: 1.8em;
+            font-weight: 800;
+            color: var(--accent-color);
+            text-decoration: none;
+            letter-spacing: 1px;
+        }
+
+        .nav-logo i {
+            font-size: 1.5em;
+        }
+
+        .nav-links {
+            display: flex;
+            list-style: none;
+            gap: 40px;
+        }
+
+        .nav-links a {
+            color: white;
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 1.05em;
+            transition: all 0.3s ease;
+            position: relative;
+            padding: 8px 0;
+        }
+
+        .nav-links a:hover {
+            color: var(--accent-color);
+        }
+
+        .nav-links a::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 0;
+            height: 3px;
+            background: var(--accent-color);
+            transition: width 0.3s ease;
+        }
+
+        .nav-links a:hover::after {
+            width: 100%;
+        }
+
+        .hamburger {
+            display: none;
+            flex-direction: column;
+            gap: 5px;
+            cursor: pointer;
+        }
+
+        .hamburger span {
+            width: 25px;
+            height: 3px;
+            background: white;
+            border-radius: 2px;
+            transition: all 0.3s ease;
+        }
+
+        /* ==================== HERO SECTION ==================== */
+        .hero-section {
+            background: linear-gradient(135deg, var(--primary-color) 0%, #1a3a52 100%);
+            color: white;
+            padding: 120px 20px;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero-section::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><circle cx="20" cy="20" r="2" fill="white" opacity="0.1"/><circle cx="80" cy="30" r="1.5" fill="white" opacity="0.1"/><circle cx="50" cy="60" r="2" fill="white" opacity="0.1"/></svg>');
+            opacity: 0.3;
+        }
+
+        .hero-content {
+            position: relative;
+            z-index: 2;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .hero-section h1 {
+            font-size: 3.5em;
+            font-weight: 800;
+            margin-bottom: 20px;
+            letter-spacing: -1px;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+        }
+
+        .hero-section p {
+            font-size: 1.3em;
+            margin-bottom: 40px;
+            font-weight: 300;
+            line-height: 1.8;
+        }
+
+        .cta-button {
+            display: inline-block;
+            background: var(--accent-color);
+            color: var(--primary-color);
+            padding: 15px 45px;
+            border-radius: 50px;
+            text-decoration: none;
+            font-weight: 700;
+            font-size: 1.1em;
+            transition: all 0.3s ease;
+            border: none;
+            cursor: pointer;
+            box-shadow: 0 4px 15px rgba(255, 215, 0, 0.3);
+        }
+
+        .cta-button:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 25px rgba(255, 215, 0, 0.5);
+            color: var(--primary-color);
+            text-decoration: none;
+        }
+
+        /* ==================== FEATURED DESTINATIONS SECTION ==================== */
+        .destinations-section {
+            padding: 80px 20px;
+            background: var(--light-color);
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .section-title {
+            text-align: center;
+            font-size: 2.8em;
+            font-weight: 800;
+            color: var(--primary-color);
+            margin-bottom: 60px;
+            letter-spacing: -1px;
+        }
+
+        /* CSS Grid Layout for Destinations */
+        .destinations-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 40px;
+            margin-bottom: 60px;
+        }
+
+        .destination-card {
+            background: white;
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+            transition: all 0.4s ease;
+            cursor: pointer;
+        }
+
+        .destination-card:hover {
+            transform: translateY(-12px);
+            box-shadow: 0 12px 30px rgba(0, 0, 0, 0.2);
+        }
+
+        .destination-image {
+            width: 100%;
+            height: 300px;
+            object-fit: cover;
+            display: block;
+            transition: transform 0.4s ease;
+        }
+
+        .destination-card:hover .destination-image {
+            transform: scale(1.08);
+        }
+
+        .destination-content {
+            padding: 30px;
+        }
+
+        .destination-content h3 {
+            font-size: 1.8em;
+            color: var(--primary-color);
+            margin-bottom: 15px;
+            font-weight: 700;
+        }
+
+        .destination-location {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            color: var(--secondary-color);
+            font-weight: 600;
+            margin-bottom: 15px;
+            font-size: 0.95em;
+        }
+
+        .destination-location i {
+            font-size: 1.2em;
+        }
+
+        .destination-content p {
+            color: #666;
+            line-height: 1.8;
+            margin-bottom: 20px;
+            font-size: 0.95em;
+        }
+
+        .destination-price {
+            font-size: 1.4em;
+            color: var(--secondary-color);
+            font-weight: 700;
+            margin-bottom: 20px;
+        }
+
+        .destination-price span {
+            font-size: 0.7em;
+            color: #999;
+            font-weight: 400;
+        }
+
+        .view-package-btn {
+            display: inline-block;
+            background: var(--primary-color);
+            color: white;
+            padding: 12px 30px;
+            border-radius: 6px;
+            text-decoration: none;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            border: 2px solid var(--primary-color);
+        }
+
+        .view-package-btn:hover {
+            background: transparent;
+            color: var(--primary-color);
+            text-decoration: none;
+        }
+
+        /* ==================== WHY CHOOSE US SECTION ==================== */
+        .why-us-section {
+            padding: 80px 20px;
+            background: white;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 40px;
+            margin-top: 50px;
+        }
+
+        .feature-card {
+            text-align: center;
+            padding: 30px;
+            background: var(--light-color);
+            border-radius: 10px;
+            transition: all 0.3s ease;
+        }
+
+        .feature-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+        }
+
+        .feature-icon {
+            font-size: 3em;
+            color: var(--secondary-color);
+            margin-bottom: 20px;
+        }
+
+        .feature-card h4 {
+            font-size: 1.3em;
+            color: var(--primary-color);
+            margin-bottom: 15px;
+            font-weight: 700;
+        }
+
+        .feature-card p {
+            color: #666;
+            line-height: 1.7;
+        }
+
+        /* ==================== CONTACT SECTION ==================== */
+        .contact-section {
+            padding: 80px 20px;
+            background: linear-gradient(135deg, var(--primary-color) 0%, #1a3a52 100%);
+            color: white;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .contact-section h2 {
+            text-align: center;
+            font-size: 2.8em;
+            font-weight: 800;
+            margin-bottom: 60px;
+            letter-spacing: -1px;
+        }
+
+        /* Contact Info Grid */
+        .contact-info-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 40px;
+            margin-bottom: 60px;
+        }
+
+        .contact-info-card {
+            background: rgba(255, 255, 255, 0.1);
+            padding: 40px;
+            border-radius: 12px;
+            text-align: center;
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            transition: all 0.3s ease;
+        }
+
+        .contact-info-card:hover {
+            background: rgba(255, 255, 255, 0.15);
+            transform: translateY(-5px);
+        }
+
+        .contact-icon {
+            font-size: 2.5em;
+            color: var(--accent-color);
+            margin-bottom: 20px;
+        }
+
+        .contact-info-card h3 {
+            font-size: 1.3em;
+            margin-bottom: 15px;
+            font-weight: 700;
+        }
+
+        .contact-info-card p {
+            font-size: 1.05em;
+            line-height: 1.7;
+        }
+
+        .contact-info-card a {
+            color: var(--accent-color);
+            text-decoration: none;
+            font-weight: 600;
+            transition: all 0.3s ease;
+        }
+
+        .contact-info-card a:hover {
+            color: white;
+        }
+
+        /* Contact Form */
+        .contact-form {
+            background: rgba(255, 255, 255, 0.1);
+            padding: 40px;
+            border-radius: 12px;
+            backdrop-filter: blur(10px);
+        }
+
+        .contact-form h3 {
+            font-size: 1.6em;
+            margin-bottom: 30px;
+            font-weight: 700;
+        }
+
+        .form-group {
+            margin-bottom: 25px;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 600;
+            font-size: 0.95em;
+        }
+
+        .form-group input,
+        .form-group textarea {
+            width: 100%;
+            padding: 12px 15px;
+            border: none;
+            border-radius: 6px;
+            font-family: inherit;
+            font-size: 0.95em;
+            transition: all 0.3s ease;
+        }
+
+        .form-group input:focus,
+        .form-group textarea:focus {
+            outline: none;
+            box-shadow: 0 0 0 3px rgba(255, 215, 0, 0.3);
+            transform: scale(1.01);
+        }
+
+        .form-group textarea {
+            resize: vertical;
+            min-height: 120px;
+        }
+
+        .submit-btn {
+            background: var(--accent-color);
+            color: var(--primary-color);
+            padding: 14px 40px;
+            border: none;
+            border-radius: 6px;
+            font-weight: 700;
+            font-size: 1.05em;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            width: 100%;
+        }
+
+        .submit-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 15px rgba(255, 215, 0, 0.3);
+        }
+
+        /* ==================== FOOTER ==================== */
+        footer {
+            background: var(--dark-color);
+            color: white;
+            padding: 40px 20px;
+            text-align: center;
+            border-top: 3px solid var(--secondary-color);
+        }
+
+        .footer-content {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .footer-links {
+            display: flex;
+            justify-content: center;
+            gap: 30px;
+            margin-bottom: 20px;
+            flex-wrap: wrap;
+        }
+
+        .footer-links a {
+            color: var(--accent-color);
+            text-decoration: none;
+            font-weight: 600;
+            transition: color 0.3s ease;
+        }
+
+        .footer-links a:hover {
+            color: white;
+        }
+
+        footer p {
+            color: #bbb;
+            font-size: 0.95em;
+        }
+
+        /* ==================== RESPONSIVE DESIGN ==================== */
+        @media (max-width: 768px) {
+            .hamburger {
+                display: flex;
+            }
+
+            .nav-links {
+                display: none;
+                position: absolute;
+                top: 60px;
+                left: 0;
+                width: 100%;
+                flex-direction: column;
+                background: var(--primary-color);
+                padding: 20px;
+                gap: 0;
+            }
+
+            .nav-links.active {
+                display: flex;
+            }
+
+            .nav-links a {
+                padding: 12px 0;
+                margin: 0;
+            }
+
+            .hero-section h1 {
+                font-size: 2.2em;
+            }
+
+            .hero-section p {
+                font-size: 1.05em;
+            }
+
+            .section-title {
+                font-size: 2em;
+            }
+
+            .destinations-grid {
+                grid-template-columns: 1fr;
+                gap: 30px;
+            }
+
+            .features-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .contact-info-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .hero-section {
+                padding: 80px 20px;
+            }
+
+            .destinations-section,
+            .why-us-section,
+            .contact-section {
+                padding: 60px 20px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .nav-container {
+                padding: 0 15px;
+            }
+
+            .nav-logo {
+                font-size: 1.4em;
+            }
+
+            .hero-section h1 {
+                font-size: 1.8em;
+            }
+
+            .hero-section p {
+                font-size: 0.95em;
+            }
+
+            .section-title {
+                font-size: 1.6em;
+                margin-bottom: 40px;
+            }
+
+            .destination-content h3 {
+                font-size: 1.3em;
+            }
+
+            .cta-button {
+                padding: 12px 30px;
+                font-size: 0.95em;
+            }
+
+            .destinations-section,
+            .why-us-section,
+            .contact-section {
+                padding: 40px 15px;
+            }
+
+            .contact-info-card {
+                padding: 25px;
+            }
+
+            .contact-form {
+                padding: 25px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- NAVIGATION BAR -->
+    <nav>
+        <div class="nav-container">
+            <a href="#" class="nav-logo">
+                <i class="fas fa-globe"></i> Wanderlust
+            </a>
+            <ul class="nav-links" id="navLinks">
+                <li><a href="#home">Home</a></li>
+                <li><a href="#packages">Packages</a></li>
+                <li><a href="#contact">Contact Us</a></li>
+            </ul>
+            <div class="hamburger" id="hamburger">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+        </div>
+    </nav>
+
+    <!-- HERO SECTION -->
+    <section class="hero-section" id="home">
+        <div class="hero-content">
+            <h1>Explore the World with Us</h1>
+            <p>Discover amazing destinations, unforgettable experiences, and travel memories that will last a lifetime.</p>
+            <a href="#packages" class="cta-button">
+                <i class="fas fa-plane"></i> Start Your Journey
+            </a>
+        </div>
+    </section>
+
+    <!-- FEATURED DESTINATIONS SECTION -->
+    <section class="destinations-section" id="packages">
+        <h2 class="section-title">Featured Destinations</h2>
+        
+        <!-- CSS Grid Layout for Three Destinations -->
+        <div class="destinations-grid">
+            <!-- Destination 1: Paris -->
+            <div class="destination-card">
+                <img src="images/parisFrance.jpg" alt="Paris, France" class="destination-image">
+                <div class="destination-content">
+                    <h3>Paris, France</h3>
+                    <div class="destination-location">
+                        <i class="fas fa-map-marker-alt"></i>
+                        France
+                    </div>
+                    <p>Experience the magic of the City of Light. Visit the iconic Eiffel Tower, explore world-class museums, and enjoy exquisite French cuisine in charming cafés.</p>
+                    <div class="destination-price">$1,299 <span>per person</span></div>
+                    <a href="#contact" class="view-package-btn">View Package</a>
+                </div>
+            </div>
+
+            <!-- Destination 2: Tokyo -->
+            <div class="destination-card">
+                <img src="images/tokyoJapan.jpg" alt="Tokyo, Japan" class="destination-image">
+                <div class="destination-content">
+                    <h3>Tokyo, Japan</h3>
+                    <div class="destination-location">
+                        <i class="fas fa-map-marker-alt"></i>
+                        Japan
+                    </div>
+                    <p>Discover the perfect blend of ancient traditions and cutting-edge modernity. From serene temples to vibrant night markets, Tokyo offers unforgettable experiences.</p>
+                    <div class="destination-price">$1,599 <span>per person</span></div>
+                    <a href="#contact" class="view-package-btn">View Package</a>
+                </div>
+            </div>
+
+            <!-- Destination 3: Dubai -->
+            <div class="destination-card">
+                <img src="images/dubaiUae.jpg" alt="Dubai, UAE" class="destination-image">
+                <div class="destination-content">
+                    <h3>Dubai, UAE</h3>
+                    <div class="destination-location">
+                        <i class="fas fa-map-marker-alt"></i>
+                        United Arab Emirates
+                    </div>
+                    <p>Experience luxury and adventure in the desert. Explore the Burj Khalifa, shop in world-class malls, and enjoy pristine beaches with perfect weather.</p>
+                    <div class="destination-price">$1,449 <span>per person</span></div>
+                    <a href="#contact" class="view-package-btn">View Package</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- WHY CHOOSE US SECTION -->
+    <section class="why-us-section">
+        <h2 class="section-title">Why Choose Wanderlust?</h2>
+        <div class="features-grid">
+            <div class="feature-card">
+                <div class="feature-icon">
+                    <i class="fas fa-star"></i>
+                </div>
+                <h4>Expert Guides</h4>
+                <p>Our experienced travel guides ensure you discover hidden gems and authentic experiences in every destination.</p>
+            </div>
+            <div class="feature-card">
+                <div class="feature-icon">
+                    <i class="fas fa-dollar-sign"></i>
+                </div>
+                <h4>Best Prices</h4>
+                <p>We offer competitive pricing with exclusive deals and discounts. Get the best value for your travel budget.</p>
+            </div>
+            <div class="feature-card">
+                <div class="feature-icon">
+                    <i class="fas fa-shield-alt"></i>
+                </div>
+                <h4>Safe & Secure</h4>
+                <p>Your safety is our priority. We include travel insurance and 24/7 support throughout your journey.</p>
+            </div>
+            <div class="feature-card">
+                <div class="feature-icon">
+                    <i class="fas fa-clock"></i>
+                </div>
+                <h4>Flexible Dates</h4>
+                <p>Choose from flexible travel dates and customize your itinerary to match your schedule perfectly.</p>
+            </div>
+            <div class="feature-card">
+                <div class="feature-icon">
+                    <i class="fas fa-hotel"></i>
+                </div>
+                <h4>Luxury Stays</h4>
+                <p>Experience comfort in handpicked hotels and resorts that match your preferences and budget.</p>
+            </div>
+            <div class="feature-card">
+                <div class="feature-icon">
+                    <i class="fas fa-headset"></i>
+                </div>
+                <h4>24/7 Support</h4>
+                <p>Our dedicated support team is always available to assist you before, during, and after your trip.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- CONTACT SECTION -->
+    <section class="contact-section" id="contact">
+        <h2>Get In Touch</h2>
+        <div class="contact-info-grid">
+            <!-- Phone Contact -->
+            <div class="contact-info-card">
+                <div class="contact-icon">
+                    <i class="fas fa-phone"></i>
+                </div>
+                <h3>Call Us</h3>
+                <p>
+                    Have questions? Give us a call anytime.<br>
+                    <a href="tel:+92213421000">+92-21-3421-0000</a><br>
+                    <span style="font-size: 0.9em; color: rgba(255,255,255,0.8);">Monday - Friday, 9AM - 6PM PST</span>
+                </p>
+            </div>
+
+            <!-- Email Contact -->
+            <div class="contact-info-card">
+                <div class="contact-icon">
+                    <i class="fas fa-envelope"></i>
+                </div>
+                <h3>Email Us</h3>
+                <p>
+                    Get in touch via email for detailed inquiries.<br>
+                    <a href="mailto:info@wanderlustravels.pk">info@wanderlustravels.pk</a><br>
+                    <span style="font-size: 0.9em; color: rgba(255,255,255,0.8);">We respond within 24 hours</span>
+                </p>
+            </div>
+
+            <!-- Location Contact -->
+            <div class="contact-info-card">
+                <div class="contact-icon">
+                    <i class="fas fa-map-marker-alt"></i>
+                </div>
+                <h3>Visit Us</h3>
+                <p>
+                    Wanderlust Travels Office<br>
+                    Karachi, Sindh, Pakistan<br>
+                    <span style="font-size: 0.9em; color: rgba(255,255,255,0.8);">Open 9AM - 6PM daily</span>
+                </p>
+            </div>
+        </div>
+
+        <!-- Contact Form -->
+        <div class="contact-form">
+            <h3>Send Us a Message</h3>
+            <form>
+                <div class="form-group">
+                    <label for="name">Full Name</label>
+                    <input type="text" id="name" name="name" required>
+                </div>
+                <div class="form-group">
+                    <label for="email">Email Address</label>
+                    <input type="email" id="email" name="email" required>
+                </div>
+                <div class="form-group">
+                    <label for="subject">Subject</label>
+                    <input type="text" id="subject" name="subject" required>
+                </div>
+                <div class="form-group">
+                    <label for="message">Message</label>
+                    <textarea id="message" name="message" required></textarea>
+                </div>
+                <button type="submit" class="submit-btn">
+                    <i class="fas fa-paper-plane"></i> Send Message
+                </button>
+            </form>
+        </div>
+    </section>
+
+    <!-- FOOTER -->
+    <footer>
+        <div class="footer-content">
+            <div class="footer-links">
+                <a href="#home">Home</a>
+                <a href="#packages">Packages</a>
+                <a href="#contact">Contact</a>
+                <a href="#">Privacy Policy</a>
+                <a href="#">Terms of Service</a>
+            </div>
+            <p>&copy; 2024 Wanderlust Travels. All rights reserved. | <i class="fas fa-heart" style="color: var(--secondary-color);"></i> Travel with Us</p>
+        </div>
+    </footer>
+
+    <!-- JavaScript for Mobile Menu Toggle -->
+    <script>
+        const hamburger = document.getElementById('hamburger');
+        const navLinks = document.getElementById('navLinks');
+
+        hamburger.addEventListener('click', () => {
+            navLinks.classList.toggle('active');
+        });
+
+        // Close menu when a link is clicked
+        document.querySelectorAll('.nav-links a').forEach(link => {
+            link.addEventListener('click', () => {
+                navLinks.classList.remove('active');
+            });
+        });
+
+        // Contact form submission
+        const contactForm = document.querySelector('.contact-form form');
+        contactForm.addEventListener('submit', (e) => {
+            e.preventDefault();
+            alert('Thank you for your message! We will get back to you soon.');
+            contactForm.reset();
+        });
+    </script>
+</body>
+</html>
