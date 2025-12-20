@@ -1,0 +1,890 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Interactive JavaScript Webpage</title>
+    
+    <!-- Font Awesome Icons -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/font-awesome@6.4.0/css/all.min.css">
+    
+    <style>
+        :root {
+            --primary-color: #667eea;
+            --secondary-color: #764ba2;
+            --accent-color: #ffd700;
+            --dark-color: #1e3c72;
+            --light-color: #f8f9fa;
+            --success-color: #28a745;
+            --danger-color: #dc3545;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 1000px;
+            margin: 0 auto;
+        }
+
+        /* ==================== HEADER ==================== */
+        header {
+            background: white;
+            padding: 40px 20px;
+            border-radius: 12px;
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
+            text-align: center;
+            margin-bottom: 40px;
+            animation: slideDown 0.6s ease-out;
+        }
+
+        @keyframes slideDown {
+            from {
+                opacity: 0;
+                transform: translateY(-30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        header h1 {
+            color: var(--primary-color);
+            font-size: 2.8em;
+            margin-bottom: 15px;
+            letter-spacing: -1px;
+        }
+
+        header p {
+            color: #666;
+            font-size: 1.1em;
+            line-height: 1.8;
+        }
+
+        header i {
+            color: var(--accent-color);
+            margin-right: 10px;
+        }
+
+        /* ==================== MAIN CONTENT ==================== */
+        .content {
+            background: white;
+            border-radius: 12px;
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
+            overflow: hidden;
+        }
+
+        /* ==================== SECTION ==================== */
+        .section {
+            padding: 50px 40px;
+            border-bottom: 2px solid var(--light-color);
+            animation: fadeIn 0.8s ease-out;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+            }
+            to {
+                opacity: 1;
+            }
+        }
+
+        .section:last-child {
+            border-bottom: none;
+        }
+
+        .section h2 {
+            color: var(--primary-color);
+            font-size: 2em;
+            margin-bottom: 25px;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .section h2 i {
+            font-size: 0.9em;
+            color: var(--accent-color);
+        }
+
+        .section-description {
+            color: #666;
+            font-size: 1.05em;
+            margin-bottom: 30px;
+            line-height: 1.8;
+        }
+
+        /* ==================== SECTION 1: WELCOME ALERT ==================== */
+        .welcome-section {
+            background: linear-gradient(135deg, var(--light-color) 0%, #f0f4ff 100%);
+            padding: 50px 40px;
+        }
+
+        .welcome-content {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 40px;
+            align-items: center;
+        }
+
+        .welcome-info h3 {
+            color: var(--primary-color);
+            font-size: 1.5em;
+            margin-bottom: 20px;
+            font-weight: 700;
+        }
+
+        .welcome-info p {
+            color: #555;
+            line-height: 1.8;
+            margin-bottom: 15px;
+        }
+
+        .welcome-code {
+            background: #1e1e1e;
+            color: #d4d4d4;
+            padding: 20px;
+            border-radius: 8px;
+            font-family: 'Courier New', monospace;
+            font-size: 0.9em;
+            overflow-x: auto;
+            margin-bottom: 20px;
+            border: 1px solid #444;
+        }
+
+        .welcome-code .keyword {
+            color: #569cd6;
+        }
+
+        .welcome-code .string {
+            color: #ce9178;
+        }
+
+        .welcome-code .function {
+            color: #dcdcaa;
+        }
+
+        .btn-group {
+            display: flex;
+            gap: 15px;
+            flex-wrap: wrap;
+        }
+
+        .btn {
+            display: inline-block;
+            padding: 12px 30px;
+            border: none;
+            border-radius: 6px;
+            font-weight: 600;
+            font-size: 0.95em;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-decoration: none;
+        }
+
+        .btn-primary {
+            background: linear-gradient(135deg, var(--primary-color) 0%, var(--secondary-color) 100%);
+            color: white;
+            box-shadow: 0 4px 12px rgba(102, 126, 234, 0.3);
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 20px rgba(102, 126, 234, 0.5);
+        }
+
+        .btn-secondary {
+            background: var(--accent-color);
+            color: var(--dark-color);
+            box-shadow: 0 4px 12px rgba(255, 215, 0, 0.3);
+        }
+
+        .btn-secondary:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 20px rgba(255, 215, 0, 0.5);
+            color: var(--dark-color);
+            text-decoration: none;
+        }
+
+        .btn-success {
+            background: var(--success-color);
+            color: white;
+            box-shadow: 0 4px 12px rgba(40, 167, 69, 0.3);
+        }
+
+        .btn-success:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 20px rgba(40, 167, 69, 0.5);
+        }
+
+        /* ==================== SECTION 2: PERSONALIZED GREETING FORM ==================== */
+        .form-section {
+            background: white;
+        }
+
+        .form-container {
+            background: linear-gradient(135deg, var(--light-color) 0%, #f0f4ff 100%);
+            padding: 40px;
+            border-radius: 10px;
+            max-width: 600px;
+            margin-bottom: 40px;
+        }
+
+        .form-group {
+            margin-bottom: 25px;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 10px;
+            color: var(--dark-color);
+            font-weight: 600;
+            font-size: 1.05em;
+        }
+
+        .form-group input {
+            width: 100%;
+            padding: 12px 15px;
+            border: 2px solid #e0e0e0;
+            border-radius: 6px;
+            font-size: 1em;
+            font-family: inherit;
+            transition: all 0.3s ease;
+        }
+
+        .form-group input:focus {
+            outline: none;
+            border-color: var(--primary-color);
+            box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
+            background-color: #f8f9ff;
+        }
+
+        .form-group input::placeholder {
+            color: #999;
+        }
+
+        .greeting-box {
+            background: white;
+            padding: 30px;
+            border-radius: 10px;
+            margin-top: 30px;
+            display: none;
+            animation: popIn 0.5s ease-out;
+            border-left: 5px solid var(--success-color);
+        }
+
+        @keyframes popIn {
+            from {
+                opacity: 0;
+                transform: scale(0.95);
+            }
+            to {
+                opacity: 1;
+                transform: scale(1);
+            }
+        }
+
+        .greeting-box.show {
+            display: block;
+        }
+
+        .greeting-box h3 {
+            color: var(--primary-color);
+            font-size: 1.5em;
+            margin-bottom: 15px;
+            font-weight: 700;
+        }
+
+        .greeting-message {
+            color: #555;
+            font-size: 1.1em;
+            line-height: 1.8;
+        }
+
+        .greeting-emoji {
+            font-size: 2em;
+            margin-right: 10px;
+        }
+
+        .user-info-table {
+            background: var(--light-color);
+            padding: 20px;
+            border-radius: 6px;
+            margin-top: 20px;
+        }
+
+        .info-row {
+            display: grid;
+            grid-template-columns: 150px 1fr;
+            gap: 20px;
+            padding: 10px 0;
+            border-bottom: 1px solid #ddd;
+        }
+
+        .info-row:last-child {
+            border-bottom: none;
+        }
+
+        .info-label {
+            font-weight: 700;
+            color: var(--primary-color);
+        }
+
+        .info-value {
+            color: #555;
+        }
+
+        /* ==================== SECTION 3: FOR LOOP & CONSOLE ==================== */
+        .console-section {
+            background: white;
+        }
+
+        .console-info {
+            background: linear-gradient(135deg, var(--light-color) 0%, #f0f4ff 100%);
+            padding: 30px;
+            border-radius: 8px;
+            margin-bottom: 30px;
+            border-left: 5px solid var(--secondary-color);
+        }
+
+        .console-info h3 {
+            color: var(--primary-color);
+            margin-bottom: 15px;
+            font-weight: 700;
+        }
+
+        .console-info p {
+            color: #666;
+            line-height: 1.8;
+            margin-bottom: 15px;
+        }
+
+        .code-block {
+            background: #1e1e1e;
+            color: #d4d4d4;
+            padding: 20px;
+            border-radius: 8px;
+            font-family: 'Courier New', monospace;
+            font-size: 0.9em;
+            overflow-x: auto;
+            margin-top: 15px;
+            border: 1px solid #444;
+            line-height: 1.6;
+        }
+
+        .code-block .keyword {
+            color: #569cd6;
+        }
+
+        .code-block .function {
+            color: #dcdcaa;
+        }
+
+        .code-block .number {
+            color: #b5cea8;
+        }
+
+        .code-block .comment {
+            color: #6a9955;
+        }
+
+        .console-output {
+            background: #1e1e1e;
+            color: #00ff00;
+            padding: 25px;
+            border-radius: 8px;
+            font-family: 'Courier New', monospace;
+            font-size: 1em;
+            margin-top: 20px;
+            border: 1px solid #444;
+            max-height: 300px;
+            overflow-y: auto;
+            line-height: 1.8;
+        }
+
+        .console-line {
+            margin-bottom: 8px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .console-prompt {
+            color: #888;
+            font-weight: bold;
+        }
+
+        .console-value {
+            color: #00ff00;
+        }
+
+        .console-label {
+            color: #ff6b6b;
+        }
+
+        /* ==================== FOOTER ==================== */
+        footer {
+            background: white;
+            padding: 30px 20px;
+            border-radius: 12px;
+            text-align: center;
+            margin-top: 40px;
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
+        }
+
+        footer p {
+            color: #666;
+            font-size: 0.95em;
+        }
+
+        .footer-links {
+            margin-top: 15px;
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            flex-wrap: wrap;
+        }
+
+        .footer-links a {
+            color: var(--primary-color);
+            text-decoration: none;
+            font-weight: 600;
+            transition: color 0.3s ease;
+        }
+
+        .footer-links a:hover {
+            color: var(--secondary-color);
+        }
+
+        /* ==================== RESPONSIVE DESIGN ==================== */
+        @media (max-width: 768px) {
+            header h1 {
+                font-size: 1.8em;
+            }
+
+            .section {
+                padding: 30px 20px;
+            }
+
+            .welcome-content {
+                grid-template-columns: 1fr;
+                gap: 20px;
+            }
+
+            .info-row {
+                grid-template-columns: 1fr;
+                gap: 5px;
+            }
+
+            .btn-group {
+                flex-direction: column;
+            }
+
+            .btn {
+                width: 100%;
+                text-align: center;
+            }
+
+            .section h2 {
+                font-size: 1.5em;
+            }
+
+            .form-container {
+                padding: 25px;
+            }
+
+            footer {
+                padding: 20px 15px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            body {
+                padding: 10px;
+            }
+
+            header {
+                padding: 25px 15px;
+                margin-bottom: 20px;
+            }
+
+            header h1 {
+                font-size: 1.4em;
+                margin-bottom: 10px;
+            }
+
+            .section {
+                padding: 20px 15px;
+            }
+
+            .console-output {
+                font-size: 0.85em;
+                max-height: 250px;
+            }
+
+            .code-block {
+                font-size: 0.8em;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- HEADER -->
+        <header>
+            <h1><i class="fas fa-code"></i> Interactive JavaScript Learning Platform</h1>
+            <p>Master JavaScript fundamentals with interactive examples and real-time demonstrations</p>
+        </header>
+
+        <div class="content">
+            <!-- SECTION 1: WELCOME ALERT -->
+            <section class="section welcome-section">
+                <h2><i class="fas fa-bell"></i> Welcome Alert Message</h2>
+                
+                <div class="welcome-content">
+                    <div class="welcome-info">
+                        <h3>What is an Alert?</h3>
+                        <p>An <strong>alert()</strong> is a JavaScript method that displays a dialog box with a message to the user. It's one of the most basic ways to communicate with users.</p>
+                        <p>When the page loads, it automatically displays a welcome message. You can also trigger it again by clicking the button below.</p>
+                        
+                        <h3 style="margin-top: 25px;">JavaScript Code:</h3>
+                        <div class="welcome-code">
+                            <span class="function">alert</span>(<span class="string">"Welcome to JavaScript Learning Platform!"</span>);
+                        </div>
+
+                        <div class="btn-group">
+                            <button class="btn btn-primary" onclick="showWelcomeAlert()">
+                                <i class="fas fa-bell"></i> Show Welcome Alert
+                            </button>
+                            <button class="btn btn-secondary" onclick="openBrowserConsole()">
+                                <i class="fas fa-terminal"></i> Open Browser Console
+                            </button>
+                        </div>
+                    </div>
+
+                    <div style="background: white; padding: 30px; border-radius: 8px; box-shadow: 0 4px 12px rgba(0,0,0,0.1);">
+                        <h3 style="color: var(--primary-color); margin-bottom: 20px;">Key Points:</h3>
+                        <ul style="color: #555; line-height: 2;">
+                            <li><i class="fas fa-check" style="color: var(--success-color); margin-right: 10px;"></i> <strong>Blocking:</strong> Alert stops code execution until dismissed</li>
+                            <li><i class="fas fa-check" style="color: var(--success-color); margin-right: 10px;"></i> <strong>Simple:</strong> Easy way to display messages</li>
+                            <li><i class="fas fa-check" style="color: var(--success-color); margin-right: 10px;"></i> <strong>User Interaction:</strong> Requires user to click OK</li>
+                            <li><i class="fas fa-check" style="color: var(--success-color); margin-right: 10px;"></i> <strong>Debugging:</strong> Useful for testing and debugging</li>
+                        </ul>
+                    </div>
+                </div>
+            </section>
+
+            <!-- SECTION 2: PERSONALIZED GREETING FORM -->
+            <section class="section form-section">
+                <h2><i class="fas fa-user-circle"></i> Personalized Greeting Form</h2>
+                <p class="section-description">Enter your name below to receive a personalized greeting message. The form demonstrates how JavaScript can interact with HTML elements and DOM manipulation.</p>
+
+                <div class="form-container">
+                    <form id="greetingForm">
+                        <div class="form-group">
+                            <label for="userName">
+                                <i class="fas fa-user"></i> Your Name
+                            </label>
+                            <input 
+                                type="text" 
+                                id="userName" 
+                                placeholder="Enter your full name" 
+                                required
+                            >
+                        </div>
+                        <button type="submit" class="btn btn-primary" style="width: 100%;">
+                            <i class="fas fa-envelope"></i> Generate Greeting
+                        </button>
+                    </form>
+
+                    <!-- Greeting Display Box -->
+                    <div id="greetingBox" class="greeting-box">
+                        <h3>
+                            <span class="greeting-emoji" id="emoji">👋</span>
+                            <span id="greetingTitle">Your Personal Greeting</span>
+                        </h3>
+                        <p class="greeting-message" id="greetingMessage"></p>
+                        
+                        <div class="user-info-table">
+                            <div class="info-row">
+                                <div class="info-label">Name:</div>
+                                <div class="info-value" id="displayName"></div>
+                            </div>
+                            <div class="info-row">
+                                <div class="info-label">Greeting Time:</div>
+                                <div class="info-value" id="greetingTime"></div>
+                            </div>
+                            <div class="info-row">
+                                <div class="info-label">Character Count:</div>
+                                <div class="info-value" id="charCount"></div>
+                            </div>
+                            <div class="info-row">
+                                <div class="info-label">Current Time:</div>
+                                <div class="info-value" id="currentTime"></div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Code Example -->
+                    <div style="margin-top: 30px; background: linear-gradient(135deg, var(--light-color) 0%, #f0f4ff 100%); padding: 20px; border-radius: 8px;">
+                        <h3 style="color: var(--primary-color); margin-bottom: 15px; font-weight: 700;">JavaScript Implementation:</h3>
+                        <div class="code-block">
+<span class="keyword">function</span> <span class="function">displayGreeting</span>(name) {<br/>
+&nbsp;&nbsp;<span class="keyword">const</span> greeting = <span class="string">`Hello, ${name}! Welcome!`</span>;<br/>
+&nbsp;&nbsp;<span class="comment">// Display the personalized message</span><br/>
+&nbsp;&nbsp;<span class="keyword">document</span>.getElementById(<span class="string">'greetingMessage'</span>).textContent = greeting;<br/>
+}
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- SECTION 3: FOR LOOP & CONSOLE OUTPUT -->
+            <section class="section console-section">
+                <h2><i class="fas fa-terminal"></i> For Loop & Console Output</h2>
+                <p class="section-description">Loops are essential programming constructs that repeat code blocks. This section demonstrates a for loop that displays the first 10 natural numbers in the browser console.</p>
+
+                <div class="console-info">
+                    <h3><i class="fas fa-info-circle"></i> What is a For Loop?</h3>
+                    <p>A <strong>for loop</strong> repeats a block of code a specified number of times. It's perfect for iterating through sequences or performing repetitive tasks.</p>
+                    
+                    <h3 style="margin-top: 20px;">For Loop Syntax:</h3>
+                    <div class="code-block">
+<span class="keyword">for</span> (initialization; condition; increment) {<br/>
+&nbsp;&nbsp;<span class="comment">// code to be executed</span><br/>
+}
+                    </div>
+
+                    <h3 style="margin-top: 20px;">Our Example - Display Numbers 1 to 10:</h3>
+                    <div class="code-block">
+<span class="keyword">for</span> (<span class="keyword">let</span> i = <span class="number">1</span>; i <= <span class="number">10</span>; i++) {<br/>
+&nbsp;&nbsp;<span class="keyword">console</span>.log(<span class="string">`Number: ${i}`</span>);<br/>
+}
+                    </div>
+                </div>
+
+                <!-- Console Output -->
+                <h3 style="color: var(--primary-color); margin-bottom: 20px; font-weight: 700;">
+                    <i class="fas fa-desktop"></i> Console Output:
+                </h3>
+                <div class="console-output" id="consoleOutput">
+                    <div class="console-line">
+                        <span class="console-prompt">></span>
+                        <span class="console-label">// Displaying first 10 natural numbers:</span>
+                    </div>
+                </div>
+
+                <div class="btn-group" style="margin-top: 30px;">
+                    <button class="btn btn-success" onclick="runForLoop()">
+                        <i class="fas fa-play"></i> Run For Loop
+                    </button>
+                    <button class="btn btn-primary" onclick="clearConsoleOutput()">
+                        <i class="fas fa-trash"></i> Clear Output
+                    </button>
+                </div>
+            </section>
+        </div>
+
+        <!-- FOOTER -->
+        <footer>
+            <p>&copy; 2024 Interactive JavaScript Learning Platform | <i class="fas fa-heart" style="color: #ff6b6b;"></i> Built for Learning</p>
+            <div class="footer-links">
+                <a href="#" onclick="openBrowserConsole(); return false;">Open Console</a>
+                <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript" target="_blank">MDN JavaScript Docs</a>
+                <a href="https://www.w3schools.com/js/" target="_blank">W3Schools JavaScript</a>
+            </div>
+        </footer>
+    </div>
+
+    <!-- JAVASCRIPT -->
+    <script>
+        // ==================== 1. WELCOME ALERT ====================
+        
+        // Show welcome alert when page loads
+        window.addEventListener('load', function() {
+            showWelcomeAlert();
+        });
+
+        // Function to display welcome alert
+        function showWelcomeAlert() {
+            alert('🎉 Welcome to the Interactive JavaScript Learning Platform! 🎉\n\nThis webpage demonstrates:\n1. Alert Messages\n2. Personalized Greetings\n3. For Loops\n\nHappy Learning! 🚀');
+        }
+
+        // Function to open browser console
+        function openBrowserConsole() {
+            console.log('%c=== Welcome to the Console! ===', 'color: #667eea; font-size: 16px; font-weight: bold;');
+            console.log('%cThis is where JavaScript outputs are displayed.', 'color: #764ba2; font-size: 14px;');
+            alert('🖥️ Browser Console Opened!\n\nPress F12 or Right-Click > Inspect > Console tab to view console messages.');
+        }
+
+        // ==================== 2. PERSONALIZED GREETING FORM ====================
+
+        const greetingForm = document.getElementById('greetingForm');
+        const userNameInput = document.getElementById('userName');
+        const greetingBox = document.getElementById('greetingBox');
+
+        // Add event listener to form submission
+        greetingForm.addEventListener('submit', function(e) {
+            e.preventDefault();
+            displayPersonalizedGreeting();
+        });
+
+        // Function to display personalized greeting
+        function displayPersonalizedGreeting() {
+            const userName = userNameInput.value.trim();
+
+            // Validation
+            if (userName === '') {
+                alert('⚠️ Please enter your name!');
+                return;
+            }
+
+            // Get greeting based on time of day
+            const hour = new Date().getHours();
+            let greeting, emoji, timeOfDay;
+
+            if (hour < 12) {
+                greeting = `Good Morning, ${userName}! ☀️ Hope you have a productive day ahead!`;
+                emoji = '🌅';
+                timeOfDay = 'Morning';
+            } else if (hour < 18) {
+                greeting = `Good Afternoon, ${userName}! 🌤️ Keep up the great work!`;
+                emoji = '🌤️';
+                timeOfDay = 'Afternoon';
+            } else {
+                greeting = `Good Evening, ${userName}! 🌙 Time to relax and learn!`;
+                emoji = '🌙';
+                timeOfDay = 'Evening';
+            }
+
+            // Update greeting display
+            document.getElementById('greetingMessage').textContent = greeting;
+            document.getElementById('emoji').textContent = emoji;
+            document.getElementById('greetingTitle').textContent = `Personalized Greeting for ${userName}`;
+            document.getElementById('displayName').textContent = userName;
+            document.getElementById('greetingTime').textContent = timeOfDay;
+            document.getElementById('charCount').textContent = userName.length + ' characters';
+            document.getElementById('currentTime').textContent = new Date().toLocaleTimeString();
+
+            // Show greeting box with animation
+            greetingBox.classList.add('show');
+
+            // Log to console
+            console.log(`%c✨ Greeting Generated for ${userName}`, 'color: #667eea; font-weight: bold; font-size: 14px;');
+            console.log({
+                name: userName,
+                greeting: greeting,
+                timeOfDay: timeOfDay,
+                characterCount: userName.length,
+                timestamp: new Date().toLocaleString()
+            });
+
+            // Scroll to greeting
+            setTimeout(() => {
+                greetingBox.scrollIntoView({ behavior: 'smooth', block: 'center' });
+            }, 300);
+        }
+
+        // ==================== 3. FOR LOOP & CONSOLE OUTPUT ====================
+
+        // Function to run for loop and display numbers
+        function runForLoop() {
+            const consoleOutput = document.getElementById('consoleOutput');
+            
+            // Clear previous output except header
+            const lines = consoleOutput.querySelectorAll('.console-line');
+            lines.forEach((line, index) => {
+                if (index > 0) line.remove();
+            });
+
+            // Log to browser console
+            console.log('%c=== First 10 Natural Numbers ===', 'color: #28a745; font-size: 14px; font-weight: bold;');
+
+            // For loop to display numbers 1-10
+            for (let i = 1; i <= 10; i++) {
+                // Create console line element
+                const line = document.createElement('div');
+                line.className = 'console-line';
+                
+                // Add delay for visual effect
+                setTimeout(() => {
+                    line.innerHTML = `
+                        <span class="console-prompt">></span>
+                        <span class="console-label">Number:</span>
+                        <span class="console-value">${i}</span>
+                    `;
+                    consoleOutput.appendChild(line);
+                    
+                    // Auto-scroll console
+                    consoleOutput.scrollTop = consoleOutput.scrollHeight;
+                }, i * 100);
+
+                // Log to browser console
+                console.log(`Number: ${i}`);
+            }
+
+            // Log completion message
+            setTimeout(() => {
+                const completeLine = document.createElement('div');
+                completeLine.className = 'console-line';
+                completeLine.innerHTML = `
+                    <span class="console-prompt">></span>
+                    <span class="console-label" style="color: #28a745;">✓ Loop completed successfully!</span>
+                `;
+                consoleOutput.appendChild(completeLine);
+
+                console.log('%c✓ For loop completed!', 'color: #28a745; font-weight: bold;');
+            }, 1100);
+        }
+
+        // Function to clear console output
+        function clearConsoleOutput() {
+            const consoleOutput = document.getElementById('consoleOutput');
+            consoleOutput.innerHTML = `
+                <div class="console-line">
+                    <span class="console-prompt">></span>
+                    <span class="console-label">// Console cleared</span>
+                </div>
+            `;
+            console.clear();
+            console.log('%c✨ Console cleared!', 'color: #667eea; font-weight: bold;');
+        }
+
+        // Display for loop results on page load
+        window.addEventListener('load', function() {
+            // Auto-run for loop after welcome alert
+            setTimeout(() => {
+                console.log('%c=== JavaScript Learning Platform Initialized ===', 'color: #667eea; font-size: 16px; font-weight: bold;');
+                console.log('%cWelcome! This console demonstrates JavaScript outputs.', 'color: #764ba2; font-size: 14px;');
+                console.log('%cTry the different sections to see JavaScript in action!', 'color: #764ba2; font-size: 14px;');
+                runForLoop();
+            }, 1500);
+        });
+
+        // Update current time in greeting box
+        setInterval(() => {
+            if (greetingBox.classList.contains('show')) {
+                document.getElementById('currentTime').textContent = new Date().toLocaleTimeString();
+            }
+        }, 1000);
+    </script>
+</body>
+</html>
