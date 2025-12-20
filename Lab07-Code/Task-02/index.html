@@ -1,0 +1,793 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dynamic Webpage - Multiple Sections</title>
+    
+    <!-- Font Awesome Icons -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/font-awesome@6.4.0/css/all.min.css">
+    
+    <style>
+        :root {
+            --primary-color: #667eea;
+            --secondary-color: #764ba2;
+            --accent-color: #ffd700;
+            --dark-color: #1e3c72;
+            --light-color: #f8f9fa;
+            --white: #ffffff;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: #333;
+        }
+
+        /* ==================== LAYOUT ====================*/
+        .page-wrapper {
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+        }
+
+        /* ==================== HEADER SECTION ====================*/
+        header {
+            background: linear-gradient(135deg, var(--primary-color) 0%, var(--secondary-color) 100%);
+            color: white;
+            padding: 40px 20px;
+            text-align: center;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+            animation: slideDown 0.6s ease-out;
+        }
+
+        @keyframes slideDown {
+            from {
+                opacity: 0;
+                transform: translateY(-30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        header h1 {
+            font-size: 2.5em;
+            font-weight: 800;
+            margin-bottom: 15px;
+            letter-spacing: -1px;
+            word-wrap: break-word;
+        }
+
+        header p {
+            font-size: 1.1em;
+            opacity: 0.95;
+        }
+
+        /* ==================== CONTENT SECTION ====================*/
+        .content-area {
+            flex: 1;
+            padding: 50px 20px;
+            transition: background-color 0.5s ease;
+            background-color: var(--light-color);
+        }
+
+        .content-wrapper {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .section-title {
+            color: var(--primary-color);
+            font-size: 2em;
+            margin-bottom: 30px;
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            font-weight: 700;
+        }
+
+        .section-title i {
+            color: var(--secondary-color);
+            font-size: 1.1em;
+        }
+
+        /* ==================== CARDS ====================*/
+        .cards-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+            margin-bottom: 50px;
+        }
+
+        .card {
+            background: white;
+            padding: 30px;
+            border-radius: 12px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+            transition: all 0.3s ease;
+            border-top: 4px solid var(--primary-color);
+        }
+
+        .card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 12px 30px rgba(0, 0, 0, 0.15);
+        }
+
+        .card h3 {
+            color: var(--primary-color);
+            margin-bottom: 15px;
+            font-size: 1.3em;
+            font-weight: 700;
+        }
+
+        .card p {
+            color: #666;
+            line-height: 1.8;
+            margin-bottom: 15px;
+        }
+
+        .card-icon {
+            font-size: 2.5em;
+            color: var(--accent-color);
+            margin-bottom: 15px;
+        }
+
+        /* ==================== CONTROL SECTION ====================*/
+        .control-section {
+            background: white;
+            padding: 40px;
+            border-radius: 12px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+            margin-bottom: 50px;
+        }
+
+        .control-section h2 {
+            color: var(--primary-color);
+            font-size: 1.6em;
+            margin-bottom: 25px;
+            font-weight: 700;
+        }
+
+        .control-group {
+            margin-bottom: 30px;
+        }
+
+        .control-group:last-child {
+            margin-bottom: 0;
+        }
+
+        .control-label {
+            display: block;
+            margin-bottom: 12px;
+            color: var(--dark-color);
+            font-weight: 600;
+            font-size: 1.05em;
+        }
+
+        /* ==================== BUTTONS ====================*/
+        .button-group {
+            display: flex;
+            gap: 15px;
+            flex-wrap: wrap;
+        }
+
+        .btn {
+            padding: 12px 25px;
+            border: none;
+            border-radius: 6px;
+            font-weight: 600;
+            font-size: 0.95em;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .btn-primary {
+            background: linear-gradient(135deg, var(--primary-color) 0%, var(--secondary-color) 100%);
+            color: white;
+            box-shadow: 0 4px 12px rgba(102, 126, 234, 0.3);
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 20px rgba(102, 126, 234, 0.5);
+            color: white;
+        }
+
+        .btn-success {
+            background: #28a745;
+            color: white;
+            box-shadow: 0 4px 12px rgba(40, 167, 69, 0.3);
+        }
+
+        .btn-success:hover {
+            background: #218838;
+            transform: translateY(-3px);
+            box-shadow: 0 8px 20px rgba(40, 167, 69, 0.5);
+        }
+
+        .btn-warning {
+            background: #ffc107;
+            color: #333;
+            box-shadow: 0 4px 12px rgba(255, 193, 7, 0.3);
+        }
+
+        .btn-warning:hover {
+            background: #ffb300;
+            transform: translateY(-3px);
+            box-shadow: 0 8px 20px rgba(255, 193, 7, 0.5);
+        }
+
+        .btn-large {
+            padding: 14px 35px;
+            font-size: 1em;
+        }
+
+        /* ==================== DROPDOWN ====================*/
+        .dropdown {
+            width: 100%;
+            max-width: 400px;
+            padding: 12px 15px;
+            border: 2px solid #e0e0e0;
+            border-radius: 6px;
+            font-size: 1em;
+            font-family: inherit;
+            background: white;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            appearance: none;
+            background-image: url('data:image/svg+xml;charset=UTF-8,<svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 12 12"><path fill="%23667eea" d="M6 9L1 4h10z"/></svg>');
+            background-repeat: no-repeat;
+            background-position: right 15px center;
+            background-size: 12px;
+            padding-right: 40px;
+        }
+
+        .dropdown:hover {
+            border-color: var(--primary-color);
+            box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
+        }
+
+        .dropdown:focus {
+            outline: none;
+            border-color: var(--primary-color);
+            box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.2);
+        }
+
+        /* ==================== COLOR PREVIEW ====================*/
+        .color-preview {
+            display: flex;
+            gap: 10px;
+            flex-wrap: wrap;
+            margin-top: 15px;
+        }
+
+        .color-box {
+            width: 40px;
+            height: 40px;
+            border-radius: 6px;
+            border: 2px solid #ddd;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.2em;
+        }
+
+        .color-box:hover {
+            transform: scale(1.1);
+            border-color: var(--primary-color);
+        }
+
+        .color-box.active {
+            border-color: var(--primary-color);
+            box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.2);
+        }
+
+        /* ==================== STATUS MESSAGE ====================*/
+        .status-message {
+            background: white;
+            padding: 20px;
+            border-radius: 6px;
+            margin-top: 15px;
+            display: none;
+            animation: fadeIn 0.3s ease-out;
+            border-left: 4px solid var(--primary-color);
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+            }
+            to {
+                opacity: 1;
+            }
+        }
+
+        .status-message.show {
+            display: block;
+        }
+
+        .status-message.success {
+            border-left-color: #28a745;
+            background: linear-gradient(135deg, #d4edda 0%, #c3e6cb 100%);
+            color: #155724;
+        }
+
+        .status-message.info {
+            border-left-color: var(--primary-color);
+            background: linear-gradient(135deg, #d1ecf1 0%, #bee5eb 100%);
+            color: #0c5460;
+        }
+
+        /* ==================== FOOTER SECTION ====================*/
+        footer {
+            background: var(--dark-color);
+            color: white;
+            padding: 40px 20px;
+            margin-top: auto;
+            text-align: center;
+            border-top: 3px solid var(--secondary-color);
+        }
+
+        footer p {
+            margin-bottom: 10px;
+        }
+
+        footer a {
+            color: var(--accent-color);
+            text-decoration: none;
+            font-weight: 600;
+            transition: color 0.3s ease;
+        }
+
+        footer a:hover {
+            color: white;
+        }
+
+        /* ==================== DYNAMIC FOOTER ====================*/
+        .dynamic-footer {
+            background: linear-gradient(135deg, var(--accent-color) 0%, #ffb700 100%);
+            color: var(--dark-color);
+            padding: 25px 20px;
+            text-align: center;
+            margin-top: 20px;
+            border-radius: 8px 8px 0 0;
+            animation: slideUp 0.6s ease-out;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 15px;
+            flex-wrap: wrap;
+            font-weight: 600;
+        }
+
+        @keyframes slideUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .dynamic-footer i {
+            font-size: 1.5em;
+        }
+
+        /* ==================== INFO BOX ====================*/
+        .info-box {
+            background: white;
+            padding: 25px;
+            border-radius: 8px;
+            border-left: 5px solid var(--primary-color);
+            margin-bottom: 30px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+        }
+
+        .info-box h3 {
+            color: var(--primary-color);
+            margin-bottom: 15px;
+            font-weight: 700;
+        }
+
+        .info-box p {
+            color: #666;
+            line-height: 1.8;
+        }
+
+        .info-box ul {
+            color: #666;
+            margin-left: 20px;
+            line-height: 1.8;
+        }
+
+        .info-box li {
+            margin-bottom: 8px;
+        }
+
+        /* ==================== RESPONSIVE ====================*/
+        @media (max-width: 768px) {
+            header {
+                padding: 30px 15px;
+            }
+
+            header h1 {
+                font-size: 1.8em;
+            }
+
+            .content-area {
+                padding: 30px 15px;
+            }
+
+            .section-title {
+                font-size: 1.4em;
+            }
+
+            .control-section {
+                padding: 25px;
+            }
+
+            .cards-grid {
+                grid-template-columns: 1fr;
+                gap: 20px;
+            }
+
+            .button-group {
+                flex-direction: column;
+            }
+
+            .btn {
+                width: 100%;
+                justify-content: center;
+            }
+
+            .dropdown {
+                max-width: 100%;
+            }
+        }
+
+        @media (max-width: 480px) {
+            header h1 {
+                font-size: 1.4em;
+            }
+
+            header p {
+                font-size: 0.9em;
+            }
+
+            .content-area {
+                padding: 20px 10px;
+            }
+
+            .section-title {
+                font-size: 1.2em;
+                gap: 10px;
+            }
+
+            .control-section {
+                padding: 15px;
+            }
+
+            footer {
+                padding: 25px 15px;
+                font-size: 0.9em;
+            }
+
+            .dynamic-footer {
+                padding: 15px;
+                font-size: 0.9em;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="page-wrapper">
+        <!-- ==================== HEADER SECTION ====================-->
+        <header id="pageHeader">
+            <h1 id="headerTitle">Welcome to Dynamic Webpage</h1>
+            <p id="headerSubtitle">A modern webpage with interactive JavaScript features</p>
+        </header>
+
+        <!-- ==================== CONTENT SECTION ====================-->
+        <div class="content-area" id="contentArea">
+            <div class="content-wrapper">
+                <!-- CONTROL SECTION -->
+                <div class="control-section">
+                    <h2><i class="fas fa-sliders-h"></i> Interactive Controls</h2>
+
+                    <!-- HEADER TEXT UPDATE CONTROL -->
+                    <div class="control-group">
+                        <label class="control-label">
+                            <i class="fas fa-heading"></i> Change Header Text
+                        </label>
+                        <p style="color: #666; margin-bottom: 15px;">Click a button to update the header text dynamically:</p>
+                        <div class="button-group">
+                            <button class="btn btn-primary btn-large" onclick="updateHeader('Welcome to Dynamic Webpage')">
+                                <i class="fas fa-home"></i> Home Title
+                            </button>
+                            <button class="btn btn-primary btn-large" onclick="updateHeader('Explore Our Features')">
+                                <i class="fas fa-star"></i> Features Title
+                            </button>
+                            <button class="btn btn-primary btn-large" onclick="updateHeader('Connect With Us Today!')">
+                                <i class="fas fa-link"></i> Contact Title
+                            </button>
+                            <button class="btn btn-primary btn-large" onclick="updateHeader('Learn More About JavaScript')">
+                                <i class="fas fa-graduation-cap"></i> Learn Title
+                            </button>
+                        </div>
+                        <div id="headerStatusMessage" class="status-message success">
+                            <i class="fas fa-check-circle"></i> Header text updated successfully!
+                        </div>
+                    </div>
+
+                    <!-- BACKGROUND COLOR CONTROL -->
+                    <div class="control-group" style="margin-top: 40px;">
+                        <label class="control-label">
+                            <i class="fas fa-palette"></i> Change Background Color
+                        </label>
+                        <p style="color: #666; margin-bottom: 15px;">Select a color from the dropdown to change the content area background:</p>
+                        <select class="dropdown" id="colorDropdown" onchange="changeBackgroundColor(this.value)">
+                            <option value="#f8f9fa">Light Gray (Default)</option>
+                            <option value="#e3f2fd">Light Blue</option>
+                            <option value="#f3e5f5">Light Purple</option>
+                            <option value="#e8f5e9">Light Green</option>
+                            <option value="#fff3e0">Light Orange</option>
+                            <option value="#fce4ec">Light Pink</option>
+                            <option value="#e0f2f1">Light Teal</option>
+                            <option value="#f1f8e9">Light Lime</option>
+                        </select>
+                        <div class="color-preview" id="colorPreview">
+                            <div class="color-box active" style="background-color: #f8f9fa;" title="Light Gray" onclick="changeBackgroundColor('#f8f9fa')">✓</div>
+                            <div class="color-box" style="background-color: #e3f2fd;" title="Light Blue" onclick="changeBackgroundColor('#e3f2fd')"></div>
+                            <div class="color-box" style="background-color: #f3e5f5;" title="Light Purple" onclick="changeBackgroundColor('#f3e5f5')"></div>
+                            <div class="color-box" style="background-color: #e8f5e9;" title="Light Green" onclick="changeBackgroundColor('#e8f5e9')"></div>
+                            <div class="color-box" style="background-color: #fff3e0;" title="Light Orange" onclick="changeBackgroundColor('#fff3e0')"></div>
+                            <div class="color-box" style="background-color: #fce4ec;" title="Light Pink" onclick="changeBackgroundColor('#fce4ec')"></div>
+                            <div class="color-box" style="background-color: #e0f2f1;" title="Light Teal" onclick="changeBackgroundColor('#e0f2f1')"></div>
+                            <div class="color-box" style="background-color: #f1f8e9;" title="Light Lime" onclick="changeBackgroundColor('#f1f8e9')"></div>
+                        </div>
+                        <div id="colorStatusMessage" class="status-message success">
+                            <i class="fas fa-check-circle"></i> Background color changed successfully!
+                        </div>
+                    </div>
+                </div>
+
+                <!-- FEATURES SECTION -->
+                <div style="margin-top: 50px;">
+                    <h2 class="section-title">
+                        <i class="fas fa-lightbulb"></i> Features
+                    </h2>
+                    <div class="cards-grid">
+                        <div class="card">
+                            <div class="card-icon">
+                                <i class="fas fa-edit"></i>
+                            </div>
+                            <h3>Dynamic Header</h3>
+                            <p>Click the buttons above to change the header text dynamically using JavaScript. No page refresh needed!</p>
+                        </div>
+                        <div class="card">
+                            <div class="card-icon">
+                                <i class="fas fa-paint-brush"></i>
+                            </div>
+                            <h3>Color Selection</h3>
+                            <p>Select from the dropdown or click color boxes to instantly change the background color of this content area.</p>
+                        </div>
+                        <div class="card">
+                            <div class="card-icon">
+                                <i class="fas fa-clock"></i>
+                            </div>
+                            <h3>Auto-Loading Footer</h3>
+                            <p>A special footer element is automatically added 5 seconds after the page loads using JavaScript setTimeout().</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- INFORMATION SECTION -->
+                <div style="margin-top: 50px;">
+                    <h2 class="section-title">
+                        <i class="fas fa-info-circle"></i> How It Works
+                    </h2>
+                    <div class="info-box">
+                        <h3>JavaScript Features Implemented</h3>
+                        <ul>
+                            <li><strong>Header Text Update:</strong> Uses DOM manipulation to change h1 and p text on button click</li>
+                            <li><strong>Background Color Change:</strong> Uses select dropdown and onclick handlers to modify CSS background-color property</li>
+                            <li><strong>Dynamic Footer:</strong> Uses setTimeout() to add a new element after 5 seconds</li>
+                            <li><strong>Status Messages:</strong> Shows feedback messages when actions are completed</li>
+                            <li><strong>Event Handling:</strong> Multiple event listeners for user interactions</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- ==================== FOOTER SECTION ====================-->
+        <footer>
+            <p><i class="fas fa-code"></i> Dynamic Webpage with JavaScript</p>
+            <p>&copy; 2024 Interactive Learning | All rights reserved</p>
+            <p>
+                <a href="#"><i class="fas fa-twitter"></i> Twitter</a> | 
+                <a href="#"><i class="fas fa-facebook"></i> Facebook</a> | 
+                <a href="#"><i class="fas fa-linkedin"></i> LinkedIn</a>
+            </p>
+        </footer>
+
+        <!-- ==================== DYNAMIC FOOTER (Added after 5 seconds) ====================-->
+        <div id="dynamicFooterContainer"></div>
+    </div>
+
+    <!-- JAVASCRIPT -->
+    <script>
+        // ==================== REQUIREMENT 2: DYNAMIC HEADER UPDATE ====================
+
+        /**
+         * Function to update header text dynamically
+         * REQUIREMENT: Use JavaScript to dynamically update the header text when a button is clicked
+         */
+        function updateHeader(newTitle) {
+            const headerTitle = document.getElementById('headerTitle');
+            const headerStatusMessage = document.getElementById('headerStatusMessage');
+
+            // Change the header title with animation
+            headerTitle.style.opacity = '0';
+            setTimeout(() => {
+                headerTitle.textContent = newTitle;
+                headerTitle.style.transition = 'opacity 0.3s ease';
+                headerTitle.style.opacity = '1';
+            }, 150);
+
+            // Show status message
+            showStatusMessage(headerStatusMessage);
+
+            // Log to console
+            console.log(`%c✓ Header updated to: "${newTitle}"`, 'color: #28a745; font-weight: bold;');
+        }
+
+        // ==================== REQUIREMENT 3: BACKGROUND COLOR CHANGE ====================
+
+        /**
+         * Function to change background color
+         * REQUIREMENT: Allow the user to change the background color of the content area by selecting from dropdown
+         */
+        function changeBackgroundColor(color) {
+            const contentArea = document.getElementById('contentArea');
+            const colorDropdown = document.getElementById('colorDropdown');
+            const colorStatusMessage = document.getElementById('colorStatusMessage');
+            const colorBoxes = document.querySelectorAll('.color-box');
+
+            // Change background color with transition
+            contentArea.style.backgroundColor = color;
+            colorDropdown.value = color;
+
+            // Update color box indicators
+            colorBoxes.forEach(box => {
+                if (box.style.backgroundColor === color) {
+                    box.classList.add('active');
+                    box.innerHTML = '✓';
+                } else {
+                    box.classList.remove('active');
+                    box.innerHTML = '';
+                }
+            });
+
+            // Show status message
+            showStatusMessage(colorStatusMessage);
+
+            // Log to console
+            console.log(`%c✓ Background color changed to: ${color}`, 'color: #28a745; font-weight: bold;');
+        }
+
+        // ==================== STATUS MESSAGE HELPER ====================
+
+        /**
+         * Helper function to show status message
+         */
+        function showStatusMessage(messageElement) {
+            messageElement.classList.add('show');
+            setTimeout(() => {
+                messageElement.classList.remove('show');
+            }, 2000);
+        }
+
+        // ==================== REQUIREMENT 4: DYNAMIC FOOTER ELEMENT ====================
+
+        /**
+         * Function to create and add a dynamic footer element
+         * REQUIREMENT: Add a new footer element dynamically after 5 seconds of loading the page
+         */
+        function addDynamicFooter() {
+            // Get the container where we'll add the dynamic footer
+            const dynamicFooterContainer = document.getElementById('dynamicFooterContainer');
+
+            // Create the dynamic footer element
+            const dynamicFooter = document.createElement('div');
+            dynamicFooter.className = 'dynamic-footer';
+            
+            // Set the content
+            const currentTime = new Date().toLocaleTimeString();
+            dynamicFooter.innerHTML = `
+                <i class="fas fa-rocket"></i>
+                <span>🎉 Page loaded! This element was added automatically after 5 seconds</span>
+                <i class="fas fa-star"></i>
+                <span style="margin-left: 10px; font-size: 0.85em;">Timestamp: ${currentTime}</span>
+            `;
+
+            // Add the element to the container
+            dynamicFooterContainer.appendChild(dynamicFooter);
+
+            // Log to console
+            console.log('%c✓ Dynamic footer element added after 5 seconds!', 'color: #28a745; font-weight: bold;');
+            console.log(`%c📍 Footer added at: ${currentTime}`, 'color: #667eea; font-weight: bold;');
+        }
+
+        // ==================== PAGE LOAD ====================
+
+        /**
+         * Execute code when page loads
+         */
+        window.addEventListener('load', function() {
+            console.log('%c=== Dynamic Webpage Loaded ===', 'color: #667eea; font-size: 14px; font-weight: bold;');
+            console.log('%cWaiting 5 seconds to add dynamic footer...', 'color: #764ba2; font-size: 12px;');
+
+            // Wait 5 seconds before adding the dynamic footer
+            setTimeout(function() {
+                addDynamicFooter();
+            }, 5000);
+
+            // Log initial state
+            console.log('%c✓ All features ready!', 'color: #28a745; font-weight: bold;');
+        });
+
+        // ==================== EVENT LISTENERS ====================
+
+        // Listen for dropdown changes
+        document.getElementById('colorDropdown').addEventListener('change', function() {
+            changeBackgroundColor(this.value);
+        });
+
+        // Add click event to color boxes
+        document.querySelectorAll('.color-box').forEach(box => {
+            box.addEventListener('click', function() {
+                const color = this.style.backgroundColor;
+                changeBackgroundColor(color);
+            });
+        });
+
+        // ==================== KEYBOARD NAVIGATION ====================
+
+        // Allow header update with keyboard shortcut (Ctrl+H)
+        document.addEventListener('keydown', function(event) {
+            if (event.ctrlKey && event.key === 'h') {
+                event.preventDefault();
+                updateHeader('Header Updated with Keyboard Shortcut!');
+            }
+        });
+
+        // ==================== INITIALIZATION ====================
+
+        console.log('%c📄 Dynamic Webpage Initializing...', 'color: #667eea; font-size: 12px; font-weight: bold;');
+        console.log('%c1️⃣ Click buttons to change header text', 'color: #666; font-size: 11px;');
+        console.log('%c2️⃣ Select a color to change background', 'color: #666; font-size: 11px;');
+        console.log('%c3️⃣ Wait 5 seconds for dynamic footer to appear', 'color: #666; font-size: 11px;');
+        console.log('%c🎯 Try Ctrl+H to change header with keyboard shortcut!', 'color: #666; font-size: 11px;');
+    </script>
+</body>
+</html>
