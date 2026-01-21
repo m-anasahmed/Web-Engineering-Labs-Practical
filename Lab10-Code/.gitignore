@@ -1,0 +1,28 @@
+# Visual Studio
+.vs/
+.vscode/
+bin/
+obj/
+*.user
+*.suo
+*.sln.docstates
+
+# Rider
+.idea/
+.idea_modules/
+*.sln.iml
+
+# Dependencies
+packages/
+node_modules/
+
+# Environment
+.env
+appsettings.local.json
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Logs
+*.log
