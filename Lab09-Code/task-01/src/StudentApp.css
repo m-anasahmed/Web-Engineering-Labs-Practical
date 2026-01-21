@@ -1,0 +1,387 @@
+/* ==================== VARIABLES ==================== */
+:root {
+    --primary-color: #667eea;
+    --secondary-color: #764ba2;
+    --accent-color: #ffd700;
+    --success-color: #28a745;
+    --danger-color: #dc3545;
+    --dark-color: #1e3c72;
+    --light-color: #f8f9fa;
+    --white: #ffffff;
+}
+
+/* ==================== GLOBAL STYLES ==================== */
+.app {
+    background: linear-gradient(135deg, var(--primary-color) 0%, var(--secondary-color) 100%);
+    min-height: 100vh;
+    padding: 20px;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+/* ==================== CONTAINER ==================== */
+.student-list-container {
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+/* ==================== HEADER ==================== */
+.list-header {
+    text-align: center;
+    color: white;
+    margin-bottom: 40px;
+    animation: slideDown 0.6s ease-out;
+}
+
+.list-header h2 {
+    font-size: 2.5em;
+    font-weight: 800;
+    margin-bottom: 10px;
+    letter-spacing: -1px;
+}
+
+.list-header p {
+    font-size: 1.05em;
+    opacity: 0.95;
+}
+
+@keyframes slideDown {
+    from {
+        opacity: 0;
+        transform: translateY(-30px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* ==================== FILTER SECTION ==================== */
+.filter-section {
+    background: white;
+    padding: 20px;
+    border-radius: 12px;
+    margin-bottom: 30px;
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    flex-wrap: wrap;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+.filter-section label {
+    font-weight: 700;
+    color: var(--dark-color);
+    font-size: 1em;
+}
+
+.filter-select {
+    padding: 10px 15px;
+    border: 2px solid #e0e0e0;
+    border-radius: 6px;
+    font-size: 1em;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    background: white;
+    color: #333;
+    font-weight: 500;
+}
+
+.filter-select:hover {
+    border-color: var(--primary-color);
+    box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
+}
+
+.filter-select:focus {
+    outline: none;
+    border-color: var(--primary-color);
+    box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.2);
+}
+
+.student-count {
+    color: var(--primary-color);
+    font-weight: 700;
+    font-size: 0.95em;
+    margin-left: auto;
+}
+
+/* ==================== STUDENTS GRID ==================== */
+.students-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+    gap: 25px;
+    margin-bottom: 50px;
+}
+
+/* ==================== STUDENT CARD ==================== */
+.student-card {
+    background: white;
+    border-radius: 12px;
+    padding: 25px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+    transition: all 0.3s ease;
+    border-top: 5px solid var(--primary-color);
+    animation: slideUp 0.5s ease-out;
+}
+
+.student-card:hover {
+    transform: translateY(-8px);
+    box-shadow: 0 12px 30px rgba(0, 0, 0, 0.15);
+}
+
+@keyframes slideUp {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* ==================== STUDENT HEADER ==================== */
+.student-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+    border-bottom: 2px solid var(--light-color);
+    padding-bottom: 15px;
+}
+
+.student-name {
+    color: var(--primary-color);
+    font-size: 1.4em;
+    font-weight: 700;
+    margin: 0;
+}
+
+.student-age {
+    background: linear-gradient(135deg, var(--primary-color) 0%, var(--secondary-color) 100%);
+    color: white;
+    padding: 6px 14px;
+    border-radius: 20px;
+    font-size: 0.85em;
+    font-weight: 700;
+}
+
+/* ==================== STUDENT BASIC INFO ==================== */
+.student-basic-info {
+    margin-bottom: 20px;
+}
+
+.student-basic-info p {
+    margin: 12px 0;
+    color: #555;
+    font-size: 0.95em;
+    line-height: 1.6;
+}
+
+.student-basic-info strong {
+    color: var(--dark-color);
+    font-weight: 700;
+}
+
+/* ==================== STUDENT ADDITIONAL INFO ==================== */
+.student-additional-info {
+    background: linear-gradient(135deg, var(--light-color) 0%, #f0f4ff 100%);
+    padding: 20px;
+    border-radius: 8px;
+    margin: 20px 0;
+    border-left: 4px solid var(--secondary-color);
+}
+
+.slide-in {
+    animation: slideIn 0.3s ease-out;
+}
+
+@keyframes slideIn {
+    from {
+        opacity: 0;
+        max-height: 0;
+        padding: 0 20px;
+    }
+    to {
+        opacity: 1;
+        max-height: 500px;
+        padding: 20px;
+    }
+}
+
+.skills-section h4 {
+    color: var(--primary-color);
+    margin-bottom: 15px;
+    font-size: 1em;
+    font-weight: 700;
+}
+
+/* ==================== SKILLS CONTAINER ==================== */
+.skills-container {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+}
+
+.skill-tag {
+    background: white;
+    color: var(--primary-color);
+    padding: 8px 15px;
+    border-radius: 20px;
+    font-size: 0.85em;
+    font-weight: 600;
+    border: 2px solid var(--primary-color);
+    transition: all 0.3s ease;
+    cursor: default;
+}
+
+.skill-tag:hover {
+    background: var(--primary-color);
+    color: white;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(102, 126, 234, 0.3);
+}
+
+/* ==================== SHOW MORE BUTTON ==================== */
+.show-more-btn {
+    width: 100%;
+    padding: 12px;
+    background: linear-gradient(135deg, var(--primary-color) 0%, var(--secondary-color) 100%);
+    color: white;
+    border: none;
+    border-radius: 8px;
+    font-weight: 700;
+    font-size: 1em;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    box-shadow: 0 4px 12px rgba(102, 126, 234, 0.3);
+}
+
+.show-more-btn:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 8px 20px rgba(102, 126, 234, 0.5);
+}
+
+.show-more-btn:active {
+    transform: translateY(-1px);
+}
+
+.show-more-btn i {
+    transition: transform 0.3s ease;
+}
+
+/* ==================== STATS SECTION ==================== */
+.stats-section {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 20px;
+    padding: 30px;
+    background: white;
+    border-radius: 12px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+}
+
+.stat-card {
+    text-align: center;
+    padding: 25px;
+    background: linear-gradient(135deg, var(--light-color) 0%, #f0f4ff 100%);
+    border-radius: 8px;
+    border-top: 4px solid var(--primary-color);
+    transition: all 0.3s ease;
+}
+
+.stat-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+}
+
+.stat-card h4 {
+    color: var(--dark-color);
+    font-size: 0.95em;
+    margin-bottom: 12px;
+    font-weight: 700;
+}
+
+.stat-value {
+    font-size: 2.5em;
+    font-weight: 800;
+    color: var(--primary-color);
+    margin: 0;
+}
+
+/* ==================== RESPONSIVE DESIGN ==================== */
+@media (max-width: 768px) {
+    .list-header h2 {
+        font-size: 1.8em;
+    }
+
+    .students-grid {
+        grid-template-columns: 1fr;
+        gap: 15px;
+    }
+
+    .filter-section {
+        flex-direction: column;
+        align-items: stretch;
+    }
+
+    .filter-select {
+        width: 100%;
+    }
+
+    .student-count {
+        margin-left: 0;
+        text-align: center;
+    }
+
+    .student-card {
+        padding: 20px;
+    }
+
+    .student-header {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+
+    .student-age {
+        margin-top: 10px;
+    }
+
+    .stats-section {
+        grid-template-columns: 1fr;
+    }
+}
+
+@media (max-width: 480px) {
+    .list-header h2 {
+        font-size: 1.4em;
+    }
+
+    .list-header p {
+        font-size: 0.9em;
+    }
+
+    .student-card {
+        padding: 15px;
+    }
+
+    .student-name {
+        font-size: 1.1em;
+    }
+
+    .student-basic-info p {
+        font-size: 0.85em;
+    }
+
+    .skill-tag {
+        font-size: 0.8em;
+        padding: 6px 12px;
+    }
+
+    .stat-value {
+        font-size: 2em;
+    }
+}
