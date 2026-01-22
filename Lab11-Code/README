@@ -1,0 +1,222 @@
+# Lab 11: LINQ Queries, MVC Framework, C# Data First Approach
+
+## Prerequisites
+
+- Visual Studio 2022+
+- .NET 9.0 SDK
+- SQL Server / LocalDB
+
+---
+
+## Step 1: Create MVC Project
+
+1. Open **Visual Studio 2022**
+2. Create new project → **ASP.NET Core Web Application (Model-View-Controller)**
+3. Project name: `LabWebApi`
+4. Framework: `.NET 9.0`
+5. Click **Create**
+
+---
+
+## Step 2: Install NuGet Packages
+
+1. Tools → NuGet Package Manager → Package Manager Console
+2. Run commands:
+
+    ```powershell
+    Install-Package Microsoft.EntityFrameworkCore.SqlServer
+    Install-Package Microsoft.EntityFrameworkCore.Tools
+    ```
+
+---
+
+## Step 3: Create Database & Table
+
+1. Open **SQL Server Management Studio** or use LocalDB
+2. Create database: `LabDatabase`
+3. Run SQL query:
+
+```sql
+-- Create the database
+CREATE DATABASE LabDatabase;
+GO
+
+-- Use the newly created database
+USE LabDatabase;
+GO
+
+-- Create the Students table
+CREATE TABLE Students (
+    StudentId INT PRIMARY KEY IDENTITY(1,1),
+    Name NVARCHAR(100) NOT NULL,
+    Age INT NOT NULL
+);
+GO
+
+-- Insert sample data
+INSERT INTO Students (Name, Age) VALUES
+('John Doe', 20),
+('Jane Smith', 22),
+('Alice Johnson', 19),
+('Bob Brown', 21),
+('Charlie White', 23),
+('David Wilson', 17),
+('Emma Davis', 25);
+GO
+```
+
+---
+
+## Step 4: Configure Connection String
+
+1. Open `appsettings.json`
+2. Add after `AllowedHosts`:
+
+    ```json
+    "ConnectionStrings": {
+    "DefaultConnection": "Server=(LocalDb)\\mydatabase;Database=LabDatabase;Trusted_Connection=True;"
+    }
+    ```
+
+    Replace `mydatabase` with your SQL Server instance name
+
+---
+
+## Step 5: Scaffold Models
+
+1. Tools → NuGet Package Manager → Package Manager Console
+2. Run:
+
+```powershell
+Scaffold-DbContext "Server=(LocalDb)\mydatabase;Database=LabDatabase;Trusted_Connection=True;" Microsoft.EntityFrameworkCore.SqlServer -OutputDir Models
+```
+
+This creates `Models` folder with `Student.cs` and `LabDatabaseContext.cs`
+
+---
+
+## Step 6: Copy Controller
+
+1. Right-click `Controllers` → Add → Controller → Select `StudentsController.cs` from repo
+2. Copy entire content from repo file
+
+---
+
+## Step 7: Copy View
+
+1. Create folder: `Views\Students`
+2. Add file: `Index.cshtml` from repo
+3. Copy entire content
+
+---
+
+## Step 8: Update Program.cs
+
+1. Open `Program.cs`
+2. Replace all content with repo's `Program.cs`
+3. Save (Ctrl+S)
+
+---
+
+## Step 9: Run Application
+
+Press **Ctrl + F5**  
+Navigate to: `http://localhost:<port>/Students`
+
+---
+
+## Testing Lab Tasks
+
+### Task 1: Add New Student Form ✅
+
+**Test Steps:**
+
+1. Application loads at `/Students`
+2. View displays student table
+3. Scroll down → Find "Add New Student" button/link
+4. Click it
+5. Fill form:
+   - Name: `Test Student`
+   - Age: `20`
+6. Submit
+7. **Expected:** New student appears in table, no validation errors
+
+**Validation Tests:**
+
+- Empty Name → Shows error
+- Age < 0 → Shows error
+- Submit valid form → Record added
+
+---
+
+### Task 2: Filter Students by Age (>18) ✅
+
+**LINQ Query Already Implemented:**
+
+In `StudentsController.cs`:
+
+```csharp
+var students = _context.Students
+    .Where(s => s.Age > 18)
+    .ToList();
+```
+
+**Test Steps:**
+
+1. Navigate to `/Students/AdultStudents`
+2. **Expected:** Only students aged 19+ display
+   - John Doe (20) ✅
+   - Jane Smith (22) ✅
+   - Alice Johnson (19) ✅
+   - Bob Brown (21) ✅
+   - Charlie White (23) ✅
+   - David Wilson (17) ❌ (Filtered out)
+
+3. Verify count = 6 students (out of 7 total)
+4. No students below 18 years appear
+
+---
+
+## Project Structure
+
+```bash
+LabWebApi/
+├── Models/
+│   ├── Student.cs              (Scaffolded)
+│   └── LabDatabaseContext.cs   (Scaffolded)
+├── Controllers/
+│   └── StudentsController.cs    (Copy from repo)
+├── Views/
+│   └── Students/
+│       └── Index.cshtml         (Copy from repo)
+├── Program.cs                   (Copy from repo)
+└── appsettings.json
+```
+
+---
+
+## Testing Checklist
+
+- ✅ Database created with 7 sample students
+- ✅ Connection string configured
+- ✅ Models scaffolded successfully
+- ✅ StudentsController created
+- ✅ Index.cshtml displays all students
+- ✅ **Task 1:** Form adds new student with validation
+- ✅ **Task 2:** LINQ filter shows only age > 18
+- ✅ No compilation errors
+- ✅ All CRUD operations work
+
+---
+
+## Troubleshooting
+
+```bash
+| Issue | Solution |
+|-------|----------|
+| Scaffold fails | Check connection string in appsettings.json |
+| View not found | Ensure `Views/Students/Index.cshtml` exists |
+| Database error | Run SQL script in SQL Server Management Studio |
+| LINQ error | Check `using System.Linq;` in controller |
+| Validation not working | Check `[Required]` attributes in model |
+```
